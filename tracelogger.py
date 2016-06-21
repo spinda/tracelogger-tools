@@ -9,6 +9,7 @@ import functools
 
 import tracelogger_clean
 import tracelogger_run
+import tracelogger_save
 import tracelogger_view
 
 parser = argparse.ArgumentParser(
@@ -23,6 +24,8 @@ tracelogger_clean.command(
         functools.partial(subparsers.add_parser, 'clean'))
 tracelogger_run.command(
         functools.partial(subparsers.add_parser, 'run'))
+tracelogger_save.command(
+        functools.partial(subparsers.add_parser, 'save'))
 tracelogger_view.command(
         functools.partial(subparsers.add_parser, 'view'))
 

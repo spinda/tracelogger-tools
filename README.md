@@ -34,6 +34,19 @@ tracelogger run -- js -e 'print("Hi!");'
 tracelogger run -o Something,Special -- js -e 'print("Hi!");'
 ```
 
+### `tracelogger save`
+
+Collect Tracelogger output files in a directory and move them to a new one.
+
+```
+tracelogger save ~/traces/my-benchmark
+```
+
+Use `-d`/`--directory` to manually specify a non-default *source* directory, and
+`-c`/`--copy` to copy the files instead of moving them. `-v`/`--verbose` turnson
+verbose logging and `-i`/`--interactive` asks for confirmation before processing
+each file.
+
 ### `tracelogger view`
 
 Launch a local web server with a GUI viewer for your Tracelogger output. Use
