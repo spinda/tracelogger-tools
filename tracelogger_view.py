@@ -7,6 +7,7 @@
 import argparse
 import http.server
 import os
+import re
 import sys
 import threading
 import webbrowser
@@ -40,10 +41,13 @@ def run(argv, unknown):
     uidir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'ui')
     cwdir = os.getcwd()
 
+    data_regex = re.compile(
+            '^/data/tl-(data|dict|event|tree)(\.[0-9]+)*\.(json|tl)$')
+
     class RequestHandler(http.server.SimpleHTTPRequestHandler):
         def do_GET(self, *args, **kwargs):
             try:
-                if self.path == '/data' or self.path.startswith('/data/'):
+                if data_regex.match(self.path):
                     self.path = self.path[5:]
                     os.chdir(tldir)
                     super().do_GET(*args, **kwargs)
