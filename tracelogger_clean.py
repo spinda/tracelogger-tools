@@ -30,20 +30,23 @@ def run(argv, unknown):
         argv.parser.print_usage()
         sys.exit()
 
-    target_dir = os.path.realpath(argv.directory)
-    files = glob(os.path.join(target_dir, 'tl-*.json')) \
-          + glob(os.path.join(target_dir, 'tl-*.tl'))
-    files.sort()
+    try:
+        target_dir = os.path.realpath(argv.directory)
+        files = glob(os.path.join(target_dir, 'tl-*.json')) \
+              + glob(os.path.join(target_dir, 'tl-*.tl'))
+        files.sort()
 
-    for f in files:
-        if argv.interactive:
-            sys.stdout.write('Delete {}? [y/N] '.format(f))
-            choice = input().lower()
-            if not choice.startswith('y'):
-                continue
-        elif argv.verbose:
-            print('deleting', f)
-        os.remove(f)
+        for f in files:
+            if argv.interactive:
+                sys.stdout.write('Delete {}? [y/N] '.format(f))
+                choice = input().lower()
+                if not choice.startswith('y'):
+                    continue
+            elif argv.verbose:
+                print('deleting', f)
+            os.remove(f)
+    except KeyboardInterrupt:
+        pass
 
 if __name__ == '__main__':
     run(*command(argparse.ArgumentParser).parse_known_args())
