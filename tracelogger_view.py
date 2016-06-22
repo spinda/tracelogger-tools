@@ -18,8 +18,10 @@ def command(parser_base):
     parser.add_argument('-d', '--directory',
             default=('.' if os.name == 'nt' else '/tmp'),
             help='Directory containing Tracelogger output (default: %(default)s)')
-    parser.add_argument('--open', action='store_true',
+    parser.add_argument('-o', '--open', action='store_true',
             help='Auto-open the Tracelogger viewer page in a new browser tab')
+    parser.add_argument('-t', '--title',
+            help='Title for the Tracelogger web page')
     parser.add_argument('-a', '--address',
             default='127.0.0.1',
             help='Address for the HTTP Server to listen on (default: %(default)s)')
@@ -41,13 +43,20 @@ def run(argv, unknown):
     uidir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'ui')
     cwdir = os.getcwd()
 
+    title = (argv.title or argv.directory).encode('utf-8')
+
     data_regex = re.compile(
             '^/data/tl-(data|dict|event|tree)(\.[0-9]+)*\.(json|tl)$')
 
     class RequestHandler(http.server.SimpleHTTPRequestHandler):
         def do_GET(self, *args, **kwargs):
             try:
-                if data_regex.match(self.path):
+                if self.path == '/data/title':
+                    self.send_response(200)
+                    self.send_header('Content-type', 'text/plain')
+                    self.end_headers()
+                    self.wfile.write(title)
+                elif data_regex.match(self.path):
                     self.path = self.path[5:]
                     os.chdir(tldir)
                     super().do_GET(*args, **kwargs)
@@ -61,7 +70,7 @@ def run(argv, unknown):
            if argv.verbose:
                super().log_message(*args, **kwargs)
 
-    server_address = (argv.address, argv.port)
+    server_address = (argv.address, int(argv.port))
     httpd = http.server.HTTPServer(server_address, RequestHandler)
 
     server_thread = threading.Thread(target=httpd.serve_forever)

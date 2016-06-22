@@ -306,6 +306,12 @@ Page.prototype.init = function() {
       return;
   }
 
+  request(['title'], function (title) {
+      document.title = '[TL] ' + title;
+  }, function (file) {
+  e // No big deal.
+  });
+
   this.loadFile(url);
 }
 

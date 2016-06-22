@@ -52,9 +52,10 @@ each file.
 Launch a local web server with a GUI viewer for your Tracelogger output. Use
 `-o`/`--open` to auto-open the web page in a new browser tab, and
 `-d`/`--directory` if you need to manually specify a non-default Tracelogger
-output directory. `-a`/`--address` and `-p`/`--port` let you specify a specific
-host address and port for the HTTP server, and `-v`/`--verbose` prints out
-server request log information.
+output directory. `-t`/`--title` lets you set a custom title for the web viewer
+page (useful when comparing multiple traces). `-a`/`--address` and `-p`/`--port`
+let you specify a specific host address and port for the HTTP server, and
+`-v`/`--verbose` prints out server request log information.
 
 ## License
 
