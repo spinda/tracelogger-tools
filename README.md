@@ -43,9 +43,9 @@ tracelogger save ~/traces/my-benchmark
 ```
 
 Use `-d`/`--directory` to manually specify a non-default *source* directory, and
-`-c`/`--copy` to copy the files instead of moving them. `-v`/`--verbose` turnson
-verbose logging and `-i`/`--interactive` asks for confirmation before processing
-each file.
+`-c`/`--copy` to copy the files instead of moving them. `-v`/`--verbose` turns
+on verbose logging and `-i`/`--interactive` asks for confirmation before
+processing each file.
 
 ### `tracelogger view`
 
