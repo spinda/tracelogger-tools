@@ -309,7 +309,7 @@ Page.prototype.init = function() {
   request(['title'], function (title) {
       document.title = '[TL] ' + title;
   }, function (file) {
-  e // No big deal.
+    // No big deal.
   });
 
   this.loadFile(url);
